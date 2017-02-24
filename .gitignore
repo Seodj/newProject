@@ -1,0 +1,27 @@
+# Log File #
+*.log
+
+# Class File #
+*.class
+/src/main/webapp/WEB-INF/classes
+
+# Class Diagram File #
+*.ucls
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.prefs
+
+# Eclipse Files #
+*/.settings/**
+*.classpath
+*.project
+
+# Build Files #
+*/target/**
+/bin/
+/deploy/
+/velocity.log.1
+
