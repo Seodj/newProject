@@ -1,4 +1,4 @@
-package com.seo.dj.domain;
+package com.seo.dj.model;
 
 import lombok.Getter;
 import lombok.Setter;

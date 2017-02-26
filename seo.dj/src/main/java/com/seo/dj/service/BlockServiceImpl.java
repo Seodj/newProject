@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seo.dj.common.config.ApiConfiguration;
-import com.seo.dj.domain.BlockServiceInfo;
+import com.seo.dj.model.BlockServiceInfo;
 import com.seo.dj.repository.BlockServiceDao;
 
 @Service

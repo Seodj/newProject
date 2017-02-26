@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<property name="destination" value="${catalina.base:-/home1/irteam/apps/tomcat}/logs" />
+	
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator>
+				<expression>
+					return logger.startsWith("org.mybatis.spring.SqlSessionUtils") | logger.startsWith("org.springframework.amqp") | logger.startsWith("org.springframework.retry");
+				</expression>
+			</evaluator>
+			<OnMismatch>NEUTRAL</OnMismatch>
+      		<OnMatch>DENY</OnMatch>
+		</filter>
+		<encoder>
+			<pattern>%d{dd HH:mm:ss.SSS} %level %logger{30}.%M\(%line\) - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="log" class="ch.qos.logback.core.FileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator>
+				<expression>
+					return logger.startsWith("org.mybatis.spring.SqlSessionUtils");
+				</expression>
+			</evaluator>
+			<OnMismatch>NEUTRAL</OnMismatch>
+      		<OnMatch>DENY</OnMatch>
+		</filter>
+		<File>${destination}/app.log</File>
+		<append>true</append>
+		<encoder>
+			<Pattern>%d{dd HH:mm:ss.SSS} %level %logger{30}.%M\(%line\) - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="error_log" class="ch.qos.logback.core.FileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<File>${destination}/error.log</File>
+		<encoder>
+			<Pattern>%d{dd HH:mm:ss.SSS} %level %logger{30}.%M\(%line\) - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<root>
+		<appender-ref ref="console" />
+		<appender-ref ref="log" />
+		<appender-ref ref="error_log" />
+	</root>
+</configuration>
