@@ -9,6 +9,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.JstlView;
@@ -30,6 +31,7 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
 		super.configureMessageConverters(converters);
 	}
 	
+	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		registry.viewResolver(urlBasedViewResolver());
 		super.configureViewResolvers(registry);
@@ -39,6 +41,11 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginIntercepter());
 		super.addInterceptors(registry);
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 
 	@Bean
