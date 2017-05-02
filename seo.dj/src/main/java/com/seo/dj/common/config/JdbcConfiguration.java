@@ -26,5 +26,7 @@ public class JdbcConfiguration {
     private int maxIdle;
 	@Value("#{jdbc['maxTotal']}")
     private int maxTotal;
+	@Value("#{common['api.url']}")
+	private String test;
     
 }
