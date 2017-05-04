@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -28,6 +31,9 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(jackson2HttpMessageConverter());
+		converters.add(byteArrayHttpMessageConverter());
+		converters.add(stringHttpMessageConverter());
+		converters.add(resourceHttpMessageConverter());
 		super.configureMessageConverters(converters);
 	}
 	
@@ -46,6 +52,21 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+	
+	@Bean
+	public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+		return new ByteArrayHttpMessageConverter();
+	}
+	
+	@Bean
+	public StringHttpMessageConverter stringHttpMessageConverter() {
+		return new StringHttpMessageConverter();
+	}
+
+	@Bean
+	public ResourceHttpMessageConverter resourceHttpMessageConverter() {
+		return new ResourceHttpMessageConverter();
 	}
 
 	@Bean
